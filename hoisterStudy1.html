@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script>
+    // 이 공간도 어디선가 처리되는 공간이다.
+    //===================== 1번 문제
+    var a = 1;
+
+    function doA(){
+        console.log("doA");
+        console.log("1: " + a); // 1번 : undefined, 3번 : 1, 4번 : function a
+        a();
+        //====================== 3번 문제
+        var a = 10; // 이걸 지우는게 3번 문제...
+        console.log("3: " + a); // 4번 : 10
+        //====================== 4번 문제
+        // 여기에 오는 순간(2번째)에는 var a = 10;이었지만
+        // function a 가 var a를 덮어 쓴다.
+        function a(){
+            console.log("function a");
+            console.log("4: " + a); //
+        }
+
+        console.log("5: " + a); // 10
+    }
+
+    doA();
+
+
+    //====================== 2번 문제
+    console.log("2:" + a); // 2번 : 1
+
+    //====================== 5번 문제
+    function doB(){
+        for(var i = 0; i < 10; ++i){
+            console.log(i);
+        }
+        console.log(i); // 10이 나온다...
+    }
+
+    doB();
+</script>
+
+</body>
+</html>

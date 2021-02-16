@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MP3</title>
+</head>
+<body>
+
+<style>
+    .container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        perspective: 1000px;
+        overflow-style: auto;
+    }
+    .music {
+        width: 200px;
+        height: 200px;
+        background-color: gray;
+        transform-style: preserve-3d;
+        margin: 20px;
+    }
+</style>
+
+<div class="container">
+    <div class="music">
+        <source src="Joji-YEAHRIGHT.mp3" type="audio/mp3">
+    </div>
+
+    <div class="music">
+        <source src="Joji-YourMan.mp3" type="audio/mp3">
+    </div>
+
+    <div class="music">
+        <source src="Joji&BENEE-Afterthought.mp3" type="audio/mp3">
+    </div>
+</div>
+
+
+<div id="controller">
+</div>
+
+
+<script>
+    var musics = document.querySelectorAll(".music");
+
+    for(var i = 0; i < musics.length; ++i){
+        musics[i].addEventListener("click"
+            , function (){
+
+                // audio 생성
+                var controller = document.getElementById("controller");
+                console.log("controller" + controller);
+
+                // 기존 audio 삭제
+                var oldAudio = controller.getElementsByTagName("audio");
+                console.log("oldAudio" + oldAudio);
+
+                var length = oldAudio.length;
+                if(null != oldAudio) {
+                    for (var i = 0; i < length; ++i) {
+                        controller.removeChild(oldAudio[i]);
+                    }
+                }
+
+                // 새로운 audio 생성
+                var newAudio = document.createElement("audio");
+
+                if('music' === this.getAttribute("class")){
+                    var sources = this.getElementsByTagName("source");
+                    for(var j = 0; j < sources.length; ++j){
+                        var newSource = document.createElement("source");
+                        newSource.setAttribute("src", sources[j].getAttribute("src"));
+                        newSource.setAttribute("type", sources[j].getAttribute("type"));
+                        newAudio.appendChild(newSource);
+                    }
+                    console.log(newAudio);
+                    newAudio.setAttribute("controls", "controls");
+                    newAudio.play();
+
+                    controller.appendChild(newAudio);
+                }
+            }, false
+        );
+    }
+
+</script>
+
+</body>
+</html>
+
+

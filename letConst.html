@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    function doA(){
+        const a = 10;
+        // a = 100; 한번 assign된 변수를 바꿀 수 없다.
+        // const b; 선언과 동시에 초기화 해야한다.
+        let b = 10;
+
+        function innerA(){
+            b = 100;
+        }
+
+        innerA();
+        console.log(b); // 100
+    }
+
+    doA();
+
+</script>
+
+
+</body>
+</html>

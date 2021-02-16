@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>my work</title>
+</head>
+<body>
+
+    <button onclick="createUL()">Create</button>
+    <button onclick="showUL()">Show</button>
+    <button onclick="updateUL()">Update</button>
+    <button onclick="deleteUL()">Delete</button>
+
+    <ul>
+    </ul>
+
+<script>
+
+    const ulObj = document.querySelector('ul');
+    let count = 0;
+    // create 버튼을 클릭하면 ul에 li를 만들어서 넣는다.
+    // createElement, createTextNode가 필요
+    function createUL(){
+        console.log("create");
+
+        // 1. ul 찾기
+        console.log(ulObj);
+
+        // 2. li 만들기
+        var newLi = document.createElement("li");
+        var text = document.createTextNode("AAA" + ++count);
+
+        // 3. li에 값 설정하기
+        newLi.appendChild(text);
+
+        // 4. ul에 붙이기
+        ulObj.appendChild(newLi);
+
+        console.log(ulObj);
+    }
+
+    function showUL(){
+        console.log("show");
+        // li를 선택했을 때 보여주기...
+    }
+
+    function updateUL(){
+        console.log("update");
+        // 모든 li를 ZZZ로 바꾼다...
+        // setAttribute, innerHTML
+        var lists = ulObj.querySelectorAll("li");
+
+        // 일반적인 for문 돌기
+        // for(var i = 0; i < lists.length; ++i){
+        //     lists[i].innerHTML = "ZZZ" + ++count;
+        // }
+
+        // forEach로 for문 돌기
+        // lists.forEach(function(item){
+        //     item.innerHTML = "zzz" + ++count;
+        // })
+
+        // for of로 돌기
+        for(const li of lists){
+            li.textContent = "new" + ++count;
+        }
+
+        // innerHTML은 보안에 취약하다... 악성 HTML(쿠키 빼돌리기)를 할 수도 있어서
+    }
+
+    function deleteUL(){
+        console.log("delete");
+        // ul을 비운다.
+        var lists = ulObj.querySelectorAll("li");
+        var count = lists.length;
+        for(var i = 0; i < count; ++i){
+            ulObj.removeChild(lists[0]);
+        }
+    }
+
+
+
+</script>
+
+</body>
+</html>
