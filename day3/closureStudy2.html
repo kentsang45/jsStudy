@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CLOSURE STUDY 2</title>
+</head>
+<body>
+
+<button>button 1</button>
+<button>button 2</button>
+<button>button 3</button>
+
+<script>
+
+    (function doB(){
+
+        console.log("doA");
+
+        // 변수를 인자로 넣었고, 그 인자가 doA의 변수라면 closure 발동
+        function addEvent(ele, num) {
+            return function () {
+                alert(num + 1);
+            }
+        }
+
+        const buttons = document.querySelectorAll("button");
+        for(var i = 0; i < buttons.length; ++i){
+            var tempFunc = addEvent(buttons[i], i);
+            buttons[i].addEventListener("click", tempFunc, false);
+        }
+
+    })();
+
+    // 즉시 실행 함수를 통해서
+    function doA(){
+
+        console.log("doA");
+
+        // 변수를 인자로 넣었고, 그 인자가 doA의 변수라면 closure 발동
+
+        // 여기에서 addEvent
+        // addEvent function를 선언한다.
+        // 선언한 function 안에 있는 num를 변수로 가지고 있는 친구가 addEvent
+        // 함수가 끝났지만 num가 참조되고 있기 때문에 죽지못해 사는 언데디
+        function addEvent(ele, num){
+            console.log("number : " + (num + 1));
+            ele.addEventListener("click", function(){
+                // 따라서 이 함수의 closure는 addEvent이다.
+                alert(num + 1);
+            }, false);
+        }
+
+        const buttons = document.querySelectorAll("button");
+        for(var i = 0; i < buttons.length; ++i){
+            addEvent(buttons[i], i);
+        }
+
+    };
+
+</script>
+
+</body>
+</html>

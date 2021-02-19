@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+
+    // AJAX에서 사용할 예정
+    function save(){
+        var total = 0;
+
+        // 외부에서 호출 불가능 = 접근제한
+        function deposit(amount){
+            console.log("deposit");
+            total += amount;
+
+            console.log("amount : " + amount);
+            console.log("total : " + total);
+        }
+        function open(){
+            console.log("open");
+            console.log("total : " + total);
+            var temp = total;
+            total = 0;
+            return temp;
+        }
+        // 이 함수가 var total을 참조하기 때문에 closure... 따라서 var total이 없어지지 않는다.
+        function show(){
+            console.log(total);
+        }
+
+        // 리턴을 객체로 하자
+        // closure...
+        return {
+            deposit, open, show
+        };
+    }
+
+    var saveObj = save();
+    saveObj.deposit(1000);
+    saveObj.show();
+    saveObj.open();
+    saveObj.show();
+    saveObj.deposit(3000);
+</script>
+
+</body>
+</html>

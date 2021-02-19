@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+    // not defined 에러 발생 O
+    // <script> 안에서 2번 돈다...
+    // 돌고 나서 window context에 메모리가 저장된다.
+    // 어쨋든 여기서 doA선언문이 없기때문에 not defined
+    doA();
+</script>
+
+<script>
+    console.log(doA);
+
+    // 이 선언문이 메모리에 올라감.
+    // 따라서 log에 doA가 잘 뜨고, 실행도 된다.
+    function doA(){
+        console.log("doA function");
+    }
+</script>
+
+<script>
+    // not defined 에러 발생 X
+    doA();
+</script>
+
+<script>
+
+</script>
+
+</body>
+</html>

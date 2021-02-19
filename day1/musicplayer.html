@@ -27,26 +27,26 @@
 
 <div class="container">
 
-    <div class="music">
-        <source src="Joji-YEAHRIGHT.mp3" type="audio/mp3">
+    <div class="music" name="A">
+        <source src="../mp3/Joji-YEAHRIGHT.mp3" type="audio/mp3">
     </div>
 
-    <div class="music">
-        <source src="Joji-YourMan.mp3" type="audio/mp3">
+    <div class="music" name="B">
+        <source src="../mp3/Joji-YourMan.mp3" type="audio/mp3">
     </div>
 
-    <div class="music">
-        <source src="Joji&BENEE-Afterthought.mp3" type="audio/mp3">
+    <div class="music" name="C">
+        <source src="../mp3/Joji&BENEE-Afterthought.mp3" type="audio/mp3">
     </div>
 </div>
 
 
 
 <div id="controller">
-
 </div>
 
 <script>
+
     var musics = document.querySelectorAll(".music");
 
     for(var i = 0; i < musics.length; ++i){
@@ -73,16 +73,28 @@
 
                 console.log(this);
                 var classValue = this.getAttribute("class");
+                var nameValue = this.getAttribute("name");
 
                 if('music' === classValue){
-                    var sources = this.getElementsByTagName("source");
-                    for(var j = 0; j < sources.length; ++j){
-                        console.log(sources[j]);
-                        var src = sources[j];
-                        console.log(src.url);
-                        newAudio.innerHTML = src;
+
+                    console.log(newAudio);
+
+                    switch(nameValue){
+                        case "A":
+                            newAudio.innerHTML = "<source src=\"../Joji-YEAHRIGHT.mp3\" type=\"audio/mp3\">";
+                            break;
+                        case "B":
+                            newAudio.innerHTML = "<source src=\"../Joji-YourMan.mp3\" type=\"audio/mp3\">";
+                            break;
+                        case "C":
+                            newAudio.innerHTML = "<source src=\"../Joji&BENEE-Afterthought.mp3\" type=\"audio/mp3\">";
+                            break;
+                        default:
+                            break;
                     }
                     console.log(newAudio);
+                    console.log(nameValue);
+
                     newAudio.play();
 
                     controller.appendChild(newAudio);

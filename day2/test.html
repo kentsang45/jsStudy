@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var b = 'aaa'; // window.b; 선언1
+    // b = 'aaa'; 식1
+
+    function doA(){ // 선언2
+        // var b; == doA.b; // 맨 위에 있다고 가정
+        console.log(b); // ? = 1) aaa
+        b = 'zzz'; // doA.b
+        console.log(b); // ? = 2) zzz
+        b = 'ccc'; // 선언3
+    }
+
+    doA(); // 식2
+    console.log(b); // ? = 3) zzz
+
+</script>
+
+<script>
+    console.log(b);
+</script>
+</body>
+</html>

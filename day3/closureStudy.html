@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CLOSURE STUDY</title>
+</head>
+<body>
+
+<button>1</button>
+<button>2</button>
+<button>3</button>
+<button>4</button>
+<button>5</button>
+
+<script>
+    (function() {
+
+        const arr = document.querySelectorAll("button");
+
+        for (var i = 0; i < arr.length; ++i) {
+            // loop가 돌때마다 함수가 생성된다.
+            // 함수의 지역변수를 선언(=인자변수)
+            // 이것 함수를 클로저로 사용해서 변수를 임시로 저장하여 사용한다.
+            (function(num){
+                console.log(num);
+
+                // 선언
+                arr[i].addEventListener("click", function (e) {
+                    alert(i + 1); // 모두 5가 나온다... 간단한 해결책은 var i 대신 let i를 사용하기
+                    // 그러나 let은 호환성 이유로 사용하지 않는다.
+                    // 5가 나오는 이유 : 실행되는 상황에서의 i는 window.i이다.
+                    // for문이 끝나는 상황에서 window.i는 5이기 때문에 5가 나오는 것이다.
+                }, false);
+            })(i);
+        }
+    })();
+
+    // arr.forEach(function(b){
+    //     b.addEventListener("click", function (e){
+    //         alert(b.textContent);
+    //     }, false);
+    // });
+
+</script>
+
+
+</body>
+</html>

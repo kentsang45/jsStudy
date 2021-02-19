@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>parameter study</title>
+</head>
+<body>
+
+<script>
+    function doA(p1, p2, p3){
+        console.log("p1 : " + p1 + ", p2 : " + p2 + ", p3 : " + p3);
+        return p1 + p2 + p3;
+    }
+
+    doA("Hello"); // undefined
+    doA("Hello", "world!"); // undefined
+    var result = doA("Hello", "world!", "!!!");
+
+    console.log(doA);
+    console.log(doA(1,2,3));
+
+
+</script>
+
+</body>
+</html>

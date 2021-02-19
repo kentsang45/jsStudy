@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>event study</title>
+</head>
+<body>
+
+<script>
+    // document 엔진을 멈추고 h1을 찾는다.
+    // 없기 때문에 null이 나온다.
+    // 그러나 이것을 추가하면 나온다.
+    // 'DOMContentLoaded' : DOM 구조가 완성이 되면 함수를 실행하라는 뜻... 그러면 document가 h1을 잘 찾는다.
+    // 아이유가 영화 보고 싶다고 하면 알려줘... 알려주면 이거 실행할게
+    // 이것이 사실 jQuery에서 $(document).ready() 와 같다
+
+    window.addEventListener('DOMContentLoaded', function(event){
+        const obj1 = document.querySelector("h1");
+        console.log(obj1); // null
+    });
+
+    // 방법1 : tag에 onClick=함수
+    // 방법2 : addEventListner에 함수 등록하기
+
+</script>
+
+<style>
+    .outer{
+        width:300px;
+        height:300px;
+        padding:100px;
+        background-color: cadetblue;
+    }
+    .inner{
+        width:200px;
+        height:200px;
+        background-color: aliceblue;
+    }
+</style>
+
+<div class="outer" onclick="outer(event)">
+    <div class="inner">
+        <h1>CLICK HERE</h1>
+    </div>
+</div>
+
+<h1>Hello!</h1>
+
+<script>
+    function outer(event){
+        console.log(
+
+        );
+
+
+
+    }
+
+    function inner(){
+        console.log("inner");
+    }
+
+    function h1(event){
+        console.log("h1");
+        event.stopPropagation();
+    }
+
+</script>
+
+</body>
+</html>

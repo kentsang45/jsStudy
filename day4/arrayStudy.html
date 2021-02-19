@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ARRAY STUDY</title>
+</head>
+<body>
+
+<button>BUTTON</button>
+
+<script>
+    // 배열 만드는 방법
+    // 크기 고정 X
+    var arr1 = [];
+    var arr2 = new Array();
+
+    arr1.push("111");
+    arr1.push("222");
+    arr1.push("333");
+
+    arr2.push("aaa");
+    arr2.push("bbb");
+    arr2.push("ccc");
+
+    console.log(arr1);
+    console.log(arr2);
+
+    // 배열 접근 방법
+    console.log(arr1[0]);
+    console.log(arr1["0"]);
+
+    // 객체 만드는 방법
+    // 이 방식을 전문용어로 객체 리터럴
+    var obj = {};
+    obj.name = "HONG";
+    obj.age = 18;
+    console.log("name", obj.name);
+    console.log("name", obj["name"]);
+
+    // 객체 리터럴 방식
+    var obj2 = {name:"HONG2", age:16};
+
+    window.name = "zzz";
+
+    function showName(){
+        console.log("this.name : " + this.name);
+        console.log(this.name);
+        console.log("this.name : " + this.name);
+
+        // 여기서 this가 누구???
+        // 함수를 호출한 주체 = this이다.
+        // window.showName(), obj2.showName()
+    }
+
+    obj2.showName = showName;
+
+    // <button> 에 name이 없기 때문에 아무것도 뜨지 않는다.
+    // 여기서 this는 <button>이다. this = document.querySelector("button")
+    document.querySelector("button")
+        .addEventListener("click", showName, false);
+
+    function showNameNew(){
+        console.log("showNameNew");
+        console.log(this.name);
+        console.log("showNameNew");
+    }
+
+    showNameNew();
+
+    console.log("=================== apply =====================");
+    showNameNew.apply(obj, null); // this를 설정해서 함수를 호출해준다. java의 invoke와 같다.
+    console.log("=================== call =====================");
+    showNameNew.call(); // java의 reflection과 비슷
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX STUDY</title>
+</head>
+
+
+<body>
+
+<div id="demolist">
+    <h2>GET TODAY'S WEATHER</h2>
+    <button class="button">weather</button>
+</div>
+
+<script>
+    // button에 event 추가
+    document.querySelector(".button").addEventListener("click",
+        function(e){
+            var target = e.target;
+            console.log("weather clicked...");
+
+            // 1. 여기서 loadDoc를 호출해도 될 것이다.
+            // loadDoc();
+
+            // 2. 그러나 여기서 closure를 사용할 수 있다.
+            var demo = document.querySelector("#demolist");
+            var xhttp = new XMLHttpRequest();
+
+            // demo와 연결... closure되었다.
+            xhttp.onreadystatechange = function() {
+                console.log("xhttp : " + this);
+                if (this.readyState == 4 && this.status == 200) {
+                    // 이걸 responseXML로 하면 안된다. null로 나옴.
+                    // 왜? =>
+                    demo.innerHTML = this.responseText;
+                }
+            };
+
+            xhttp.open("GET", "list.html", true);
+            xhttp.send();
+        }, false
+    );
+
+
+
+</script>
+
+</body>
+</html>

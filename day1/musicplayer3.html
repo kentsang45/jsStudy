@@ -28,22 +28,22 @@
 <div class="container">
 
     <div class="music">
-        <source src="Joji-YEAHRIGHT.mp3" type="audio/mp3">
+        <source src="../mp3/Joji-YEAHRIGHT.mp3" type="audio/mp3">
     </div>
 
     <div class="music">
-        <source src="Joji-YourMan.mp3" type="audio/mp3">
+        <source src="../mp3/Joji-YourMan.mp3" type="audio/mp3">
     </div>
 
     <div class="music">
-        <source src="Joji&BENEE-Afterthought.mp3" type="audio/mp3">
+        <source src="../mp3/Joji&BENEE-Afterthought.mp3" type="audio/mp3">
     </div>
 </div>
 
 
 
 <div id="controller">
-    <audio autoplay controls src="Joji-YourMan.mp3" type="audio/mp3"></audio>
+
 </div>
 
 <script>
@@ -78,21 +78,19 @@
                     var sources = this.getElementsByTagName("source");
                     for(var j = 0; j < sources.length; ++j){
                         console.log(sources[j]);
-                        var src = sources[j].getAttribute("src");
-                        var type = sources[j].getAttribute("type");
-                        console.log(src);
-                        console.log(type);
-
-                        var newSource = document.createElement("source");
-                        newSource.setAttribute("src", src);
-                        newSource.setAttribute("type", type);
-                        newAudio.appendChild(newSource);
+                        var src = sources[j];
+                        console.log(src.url);
+                        newAudio.innerHTML = src;
                     }
                     console.log(newAudio);
                     newAudio.play();
 
                     controller.appendChild(newAudio);
+
+                } else{
+                    this.setAttribute("class", "card");
                 }
+
             }
             , false
         );
