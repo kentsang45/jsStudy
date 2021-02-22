@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>To-Do List</title>
+</head>
+<body>
+
+<div class="addDiv">
+    <input name="title">
+    <button class="addButton">add</button>
+</div>
+
+<ul class="todoUL">
+
+
+</ul>
+
+
+<!-- JQUERY -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- JQUERY START -->
+
+
+<!-- Service Script -->
+<script>
+    // 나중에 js 파일로 빼준다.
+    // Module 패턴! (가장 쉬운 패턴, closure와 병합)
+    // 서비스 객체 생성
+    var service = (function () {
+        // method를 통해서만 접근 가능
+        var todos = [];
+
+        function add(todo) {
+            todos.push(todo);
+            console.log("add : " + todos);
+        }
+
+        function remove(index) {
+            todos.splice(index, 1);
+        }
+
+        function getList() {
+            return todos;
+        }
+
+        return {add: add, remove: remove, getList: getList};
+    })();
+
+    console.log("service", service);
+
+</script>
+<!-- Service Script End -->
+
+
+<!-- UI Script -->
+<script>
+    $(document).ready(function () {
+        // input 태그 중에서 name이 title인 녀석을 찾는 것
+        var input = $("input[name='title']");
+        // addButton 클래스 찾기
+        var addButton = $(".addButton");
+        var todoUL = $(".todoUL");
+
+        // angular, vue 는 model이 바뀌면 알아서 바꿔준다.
+        // addButton를 클릭 이벤트
+        addButton.on('click', function () {
+            var titleStr = input.val();
+            service.add(titleStr);
+            input.val(""); // input 내용 reset
+            showList();
+        });
+
+        // 목록 ul에 추가해서 조회하기
+        function showList() {
+            var todos = service.getList();
+            todoUL.html("");
+            for (var i = 0; i < todos.length; ++i) {
+                console.log(todos);
+                todoUL.append("<li data-idx='"+ i +"'><button class='deletebutton'>del</button>" + todos[i] + "</li>"); // html의 append와 다르다.
+            }
+        }
+
+        // li에 있는 버튼들 하나씩 event를 걸지 말고 ul 전체에 event를 걸자.
+        // button가 동적으로 만들어지기 때문에 이 함수가 실행되는 상황에서는
+        // button이 없기 때문에 동작이 안된다.
+        // 따라서 원래 있던 todoUL에 이벤트를 걸어야한다.
+        // 그리고 이벤트 위임이 가능하다. 여기에서 'deletebutton'에게 위임
+        // 따라서 동적으로 이벤트를 생성하는 것이 가능
+        todoUL.on('click', '.deletebutton', function (e) {
+            // event 자체도 jQuery로 구한 것과 일반의 것과 다르다.
+            var target = e.target;
+            console.log(e);
+            console.log(target);
+            console.log(this);
+            // 이벤트를 위임하면 위임한 객체와 e.target했던 것과 같아진다.
+
+            // 다음으로 지금 클릭한 li(상위 엘리멘트)가 몇번째 li인지 알아서
+            // service로 보낸 후 지워야한다.
+            // $(this)를 하면 this를 다시 jQuery객체로 만들 수 있다.
+            var li = $(this).closest("li"); // 가장 가까운 li 객체를 찾기
+            console.log(li); // 이때, li는 jQuery 객체
+            // 몇번째 인덱스인지 알기 위해 'data-'를 사용해야한다.
+            // 이것이 React의 key의 역할과 같다!
+            var index = li.data("idx"); // data-idx를 불러오기... ㅎㄷㄷ
+            console.log(index);
+            // li.remove();
+            service.remove(index);
+
+            // 반영된 결과를 다시 출력
+            showList();
+        });
+
+    });
+</script>
+<!-- UI Script End -->
+
+</body>
+</html>

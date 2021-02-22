@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Callback Study</title>
+</head>
+<body>
+
+<script>
+    // 시간이 지나면 task를 실행하는 함수
+    function getData(task, time, func) {
+        setTimeout(function () {
+            console.log(task);
+
+            if (func) {
+                func();
+            }
+
+        }, time);
+    }
+
+    getData("A", 3000, function () {
+        getData("B", 2000);
+    });
+
+    //================ VERSION 2 =================//
+    //================ VERSION 2 =================//
+    //================ VERSION 2 =================//
+
+    function getData2(task, time) {
+        // promise 쓰는 법
+        // 첫번째인자 : 성공했을때, 두번째인자 : 실패했을때
+        return new Promise(function (resolve, reject) {
+                setTimeout(function () {
+                    console.log(task);
+                    resolve();
+                }, time);
+            }
+        );
+    }
+
+    // promise를 받아서 새로운 작업을 할 수 있다. = then을 통해서 가능
+    var result = getData2("AAA", 3000);
+    console.log(result);
+    var result2 = result.then(function () {
+        getData2("BBB", 2000).then(function () {
+            getData2("CCC", 1000);
+        });
+    });
+
+
+</script>
+
+</body>
+</html>
