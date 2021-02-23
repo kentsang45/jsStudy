@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find Study</title>
+</head>
+
+
+<body>
+
+<div class="box">
+    <button class="button">b1</button>
+    <button class="button">b2</button>
+    <button class="button 3">b3</button>
+    <button class="button">b4</button>
+    <button class="button">b5</button>
+    <button class="button">b6</button>
+</div>
+
+
+<!-- JQUERY -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- JQUERY START -->
+
+
+<script>
+    var box = $(".box");
+    // box.find("button").not(".3").hide(); // 3 빼고 다 숨기기
+    // box.find(".button:nth-child(1)").hide(); // 1번째(첫번째) 빼고 다 숨기기
+    box.find("button:nth-child(1)").hide(); // 1번째(첫번째) 빼고 다 숨기기
+
+    //====== ANIMATION ======//
+    box.animate(); // css를 넣는다.
+
+
+</script>
+
+
+</body>
+</html>

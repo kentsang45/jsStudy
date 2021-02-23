@@ -8,7 +8,7 @@
 
 <div class="addDiv">
     <input name="title">
-    <button class="addButton">add</button>
+    <button class="addButton">ADD</button>
 </div>
 
 <ul class="todoUL">
@@ -40,11 +40,15 @@
             todos.splice(index, 1);
         }
 
+        function update(index, todo){
+            todos[index] = todo;
+        }
+
         function getList() {
             return todos;
         }
 
-        return {add: add, remove: remove, getList: getList};
+        return {add: add, remove: remove, getList: getList, update:update};
     })();
 
     console.log("service", service);
@@ -64,9 +68,22 @@
 
         // angular, vue 는 model이 바뀌면 알아서 바꿔준다.
         // addButton를 클릭 이벤트
-        addButton.on('click', function () {
+        addButton.on('click', function (e) {
+            var inner = e.target.innerHTML;
             var titleStr = input.val();
-            service.add(titleStr);
+
+            switch(inner){
+                case "ADD":
+                    service.add(titleStr);
+                    break;
+                case "MOD":
+                    service.update(input.attr("data-idx"), titleStr);
+                    addButton.text("ADD");
+                    break;
+                default:
+                    break;
+            }
+
             input.val(""); // input 내용 reset
             showList();
         });
@@ -88,6 +105,9 @@
         // 그리고 이벤트 위임이 가능하다. 여기에서 'deletebutton'에게 위임
         // 따라서 동적으로 이벤트를 생성하는 것이 가능
         todoUL.on('click', '.deletebutton', function (e) {
+            // 전파 방지
+            e.stopPropagation();
+
             // event 자체도 jQuery로 구한 것과 일반의 것과 다르다.
             var target = e.target;
             console.log(e);
@@ -111,7 +131,30 @@
             showList();
         });
 
-    });
+        // li를 클릭 했을 때 input창에 그 텍스트가 뜬다
+        // button도 add가 아닌 modify가 뜬다
+        todoUL.on('click', "li", function(){
+            var $this = $(this);
+            // li의 내용을 가져오기
+            var text1 = $this.text();
+            //alert(text1); //deltext 가 나온다...
+            var text2 = $this.not("button").text(); // 여전히 나온다.
+            // alert(text2);
+            var $li = $this.clone();
+            $li.find("button").remove(); // li전체를 clone 한후, button을 지우고 출력
+            // alert($li.text()); // 이제 잘 나온다.
+
+            var index = $li.data("idx");
+            input.val($li.text()).attr("data-idx", index);
+            addButton.text("MOD");
+            console.log(input);
+
+        });
+
+
+    }); // document ready end
+
+
 
 
     // 숙제 1 : piggybank 만들기
